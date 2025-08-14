@@ -1,0 +1,5 @@
+= mariadb-operator
+
+mariadb-operator is a Commodore component to manage mariadb-operator.
+
+See the xref:references/parameters.adoc[parameters] reference for further details.

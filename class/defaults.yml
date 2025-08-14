@@ -1,0 +1,5 @@
+parameters:
+  mariadb_operator:
+    =_metadata:
+      multi_tenant: true
+    namespace: syn-mariadb-operator
