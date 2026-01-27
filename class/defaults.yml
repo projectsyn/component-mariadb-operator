@@ -3,3 +3,33 @@ parameters:
     =_metadata:
       multi_tenant: true
     namespace: syn-mariadb-operator
+
+    charts:
+      mariadb-operator:
+        source: https://helm.mariadb.com/mariadb-operator
+        version: 25.10.2
+
+    images:
+      mariadb:
+        registry: docker.io
+        repository: mariadb
+        tag: 11.8.5
+      mariadb_operator:
+        registry: docker-registry3.mariadb.com
+        repository: mariadb-operator/mariadb-operator
+        tag: 25.10.2
+    helmValues:
+      config:
+        mariadbImage: ${mariadb_operator:images:mariadb:registry}/${mariadb_operator:images:mariadb:repository}:${mariadb_operator:images:mariadb:tag}
+      image:
+        repository: ${mariadb_operator:images:mariadb_operator:registry}/${mariadb_operator:images:mariadb_operator:repository}
+        tag: ${mariadb_operator:images:mariadb_operator:tag}
+      metrics:
+        enabled: true
+      webhook:
+        image:
+          repository: ${mariadb_operator:images:mariadb_operator:registry}/${mariadb_operator:images:mariadb_operator:repository}
+          tag: ${mariadb_operator:images:mariadb_operator:tag}
+        cert:
+          certManager:
+            enabled: true

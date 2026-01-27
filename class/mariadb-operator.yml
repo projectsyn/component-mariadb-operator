@@ -9,3 +9,29 @@ parameters:
           - ${_base_directory}/component/main.jsonnet
         input_type: jsonnet
         output_path: mariadb-operator/
+      - input_type: helm
+        input_paths:
+          - ${_base_directory}/dependencies/mariadb-operator/helmchart/mariadb-operator-crds-${mariadb_operator:charts:mariadb-operator:version}
+        helm_params:
+          name: mariadb-operator-crd
+          namespace: ${mariadb_operator:namespace}
+        output_path: mariadb-operator/helmchart
+      - input_type: helm
+        input_paths:
+          - ${_base_directory}/dependencies/mariadb-operator/helmchart/mariadb-operator-${mariadb_operator:charts:mariadb-operator:version}
+        helm_values: ${mariadb_operator:helmValues}
+        helm_params:
+          name: mariadb-operator
+          namespace: ${mariadb_operator:namespace}
+        output_path: mariadb-operator/helmchart
+    dependencies:
+      - type: helm
+        source: ${mariadb_operator:charts:mariadb-operator:source}
+        chart_name: mariadb-operator-crds
+        version: ${mariadb_operator:charts:mariadb-operator:version}
+        output_path: ${_base_directory}/dependencies/mariadb-operator/helmchart/mariadb-operator-crds-${mariadb_operator:charts:mariadb-operator:version}
+      - type: helm
+        source: ${mariadb_operator:charts:mariadb-operator:source}
+        chart_name: mariadb-operator
+        version: ${mariadb_operator:charts:mariadb-operator:version}
+        output_path: ${_base_directory}/dependencies/mariadb-operator/helmchart/mariadb-operator-${mariadb_operator:charts:mariadb-operator:version}

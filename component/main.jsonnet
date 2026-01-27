@@ -7,4 +7,5 @@ local params = inv.parameters.mariadb_operator;
 
 // Define outputs below
 {
+  '01_namespace': kube.Namespace(params.namespace),
 }
