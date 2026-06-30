@@ -7,7 +7,7 @@ parameters:
     charts:
       mariadb-operator:
         source: https://helm.mariadb.com/mariadb-operator
-        version: 25.10.2
+        version: 26.3.0
 
     images:
       mariadb:
@@ -17,10 +17,12 @@ parameters:
       mariadb_operator:
         registry: docker-registry3.mariadb.com
         repository: mariadb-operator/mariadb-operator
-        tag: 25.10.2
+        tag: 26.3.0
     helmValues:
       config:
-        mariadbImage: ${mariadb_operator:images:mariadb:registry}/${mariadb_operator:images:mariadb:repository}:${mariadb_operator:images:mariadb:tag}
+        mariadbImage:
+          repository: ${mariadb_operator:images:mariadb:registry}/${mariadb_operator:images:mariadb:repository}
+          tag: ${mariadb_operator:images:mariadb:tag}
       image:
         repository: ${mariadb_operator:images:mariadb_operator:registry}/${mariadb_operator:images:mariadb_operator:repository}
         tag: ${mariadb_operator:images:mariadb_operator:tag}
